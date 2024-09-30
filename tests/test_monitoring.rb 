@@ -1,0 +1,10 @@
+require 'rspec'
+require_relative '../src/monitoring/logger'
+
+RSpec.describe LoggerService do
+  let(:logger_service) { LoggerService.new }
+
+  it 'logs a message' do
+    expect { logger_service.log('Test message') }.to change { File.read('security.log').lines.count }.by(1)
+  end
+end

@@ -1,0 +1,20 @@
+require_relative 'user'
+
+class AuthService
+  def initialize
+    @users = {}
+  end
+
+  def register(username, password)
+    @users[username] = User.new(username, password)
+    "User #{username} registered successfully."
+  end
+
+  def login(username, password)
+    user = @users[username]
+    return "User not found." unless user
+    return "Login successful." if user.valid_password?(password)
+
+    "Invalid password."
+  end
+end
