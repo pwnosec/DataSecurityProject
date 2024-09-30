@@ -1,0 +1,14 @@
+require 'rspec'
+require_relative '../src/encryption/encryptor'
+
+RSpec.describe Encryptor do
+  let(:key) { OpenSSL::Digest::SHA256.digest('your-secret-key') }
+  let(:encryptor) { Encryptor.new(key) }
+  let(:plain_text) { "Test Data" }
+
+  it 'encrypts and decrypts data correctly' do
+    encrypted = encryptor.encrypt(plain_text)
+    decrypted = encryptor.decrypt(encrypted)
+    expect(decrypted).to eq(plain_text)
+  end
+end
